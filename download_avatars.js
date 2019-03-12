@@ -34,11 +34,11 @@ function downloadImageByURL(url, path) {
       .on('end', function (response) {
         console.log('download complete!', response)
       })
-      .pipe(fs.createWriteStream(`./avatarImages/${path}.jpg`));
+      .pipe(fs.createWriteStream(`./avatars/${path}.jpg`));
 }
 
-getRepoContributors("jquery", "jquery", function(err, result) {
-    result.forEach(function(contributer) { console.log(contributer.avatar_url); 
-    downloadImageByURL(contributer.avatar_url, contributer.login);
-  });
+getRepoContributors(process.argv[2], process.argv[3], function(err, result) {
+  result.forEach(function(contributer) { console.log(contributer.avatar_url); 
+  downloadImageByURL(contributer.avatar_url, contributer.login);
+});
 });
