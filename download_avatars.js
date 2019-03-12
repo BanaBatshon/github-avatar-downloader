@@ -18,7 +18,7 @@ function getRepoContributors(repoOwner, repoName, cb) {
 
   request(options, function(err, response, body) {
     var contributers = JSON.parse (body);
-    console.log(contributers);
+    // console.log(contributers);
     cb(err, contributers)
   });
 
@@ -47,7 +47,13 @@ function downloadImageByURL(url, path) {
 
 // calls both functions to get each contributer's url then download their avatar. Allows the user to type the command through the terminal
 getRepoContributors(process.argv[2], process.argv[3], function(err, result) {
+
+  // prints an error if number of arguments or type of arguments is incorrecr
+  if ((process.argv).length !== 4) {
+    console.log("Error: please enter two arguments");
+  } else {
   result.forEach(function(contributer) { console.log(contributer.avatar_url); 
   downloadImageByURL(contributer.avatar_url, contributer.login);
-});
+  });
+  };
 });
