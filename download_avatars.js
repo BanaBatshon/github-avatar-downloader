@@ -1,7 +1,7 @@
 // imports the request and fs packages as well as the secret folder for the tiken
 var request = require('request');
-var secrets = require('./secrets');
 var fs = require('fs');
+require('dotenv').config()
 
 
 console.log('Welcome to the GitHub Avatar Downloader!');
@@ -12,7 +12,7 @@ function getRepoContributors(repoOwner, repoName, cb) {
     url: "https://api.github.com/repos/" + repoOwner + "/" + repoName + "/contributors",
     headers: {
       'User-Agent': 'request',
-      'Authorization': secrets.GITHUB_TOKEN
+      'Authorization': process.env.GITHUB_TOKENsec
     }
   };
 
