@@ -36,7 +36,13 @@ function downloadImageByURL(url, path) {
       .on('end', function (response) {
         console.log('download complete!', response)
       })
-      .pipe(fs.createWriteStream(`./avatars/${path}.jpg`));
+      if (fs.existsSync('./avatars')) {
+        request.get(url).pipe(fs.createWriteStream(`./avatars/${path}.jpg`));
+    } else {
+      fs.mkdirSync('avatars');
+      request.get(url).pipe(fs.createWriteStream(`./avatars/${path}.jpg`));
+    }
+      
 }
 
 // calls both functions to get each contributer's url then download their avatar. Allows the user to type the command through the terminal
